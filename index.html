@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-id="th-modified">HELA – Pizza & Kebab Milano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rosso:   #C8202A;
+      --oro:     #D4A843;
+      --nero:    #111010;
+      --fumo:    #1A1A1A;
+      --grigio:  #2A2A2A;
+      --crema:   #FAF5EE;
+      --testo:   #E8E0D5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--nero);
+      color: var(--testo);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(0,0,0,.85), transparent);
+      backdrop-filter: blur(2px);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 900;
+      letter-spacing: .04em;
+      color: var(--oro);
+    }
+    .logo span { color: var(--rosso); }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a {
+      color: var(--testo); text-decoration: none;
+      font-size: .85rem; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+    nav ul a:hover { color: var(--oro); }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 0 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,32,42,.18), transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(212,168,67,.10), transparent 60%);
+    }
+    /* animated food emojis background */
+    .food-bg {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .food-bg span {
+      position: absolute;
+      font-size: 2.4rem;
+      opacity: .06;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: .06; }
+      100% { transform: translateY(-10vh)  rotate(360deg); opacity: 0; }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--oro);
+      color: var(--oro);
+      font-size: .72rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: 6px 20px; border-radius: 40px;
+      margin-bottom: 28px;
+      animation: fadeDown .7s ease both;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      font-weight: 900; line-height: 1.0;
+      letter-spacing: -.01em;
+      animation: fadeUp .8s .15s ease both;
+    }
+    h1 em { color: var(--rosso); font-style: normal; }
+    .hero-sub {
+      margin-top: 22px;
+      font-size: 1.05rem; font-weight: 300; color: #aaa;
+      letter-spacing: .04em;
+      animation: fadeUp .8s .3s ease both;
+    }
+    .hero-cta {
+      margin-top: 44px;
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .8s .45s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .btn {
+      display: inline-block; padding: 14px 34px;
+      border-radius: 4px; text-decoration: none;
+      font-size: .88rem; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; transition: all .25s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--rosso); color: #fff;
+    }
+    .btn-primary:hover { background: #a8181f; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--oro); color: var(--oro);
+    }
+    .btn-outline:hover { background: var(--oro); color: var(--nero); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: #555; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, #555, transparent);
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 96px 48px; }
+    .section-label {
+      display: block;
+      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--oro); margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    h2 em { color: var(--rosso); font-style: normal; }
+
+    /* ── CHI SIAMO ── */
+    #chi-siamo {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      background: var(--fumo);
+    }
+    .chi-img {
+      position: relative; border-radius: 8px; overflow: hidden;
+    }
+    .chi-img img {
+      width: 100%; height: 460px; object-fit: cover;
+      display: block;
+      filter: brightness(.85) saturate(1.1);
+    }
+    .chi-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 2px solid rgba(212,168,67,.25);
+      border-radius: 8px;
+    }
+    .chi-testo p {
+      line-height: 1.75; color: #aaa; font-size: 1.0rem; margin-bottom: 20px;
+    }
+    .stats {
+      display: flex; gap: 40px; margin-top: 36px; flex-wrap: wrap;
+    }
+    .stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 900; color: var(--oro);
+    }
+    .stat span { font-size: .78rem; color: #777; letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ── MENU ── */
+    #menu { background: var(--nero); }
+    .menu-intro { max-width: 580px; margin-bottom: 64px; }
+    .menu-intro p { color: #888; line-height: 1.7; }
+
+    .menu-tabs {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px;
+    }
+    .tab-btn {
+      padding: 9px 22px; border-radius: 40px; cursor: pointer;
+      border: 1.5px solid #333; background: transparent;
+      color: #888; font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; transition: all .2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--rosso); border-color: var(--rosso); color: #fff;
+    }
+
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+    }
+    .menu-card {
+      background: var(--grigio);
+      padding: 28px 30px;
+      transition: background .2s;
+      display: none;
+    }
+    .menu-card.visible { display: block; }
+    .menu-card:hover { background: #333; }
+    .menu-card-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .menu-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; line-height: 1.3;
+    }
+    .menu-price {
+      font-size: 1.05rem; font-weight: 500; color: var(--oro);
+      white-space: nowrap; margin-left: 12px;
+    }
+    .menu-card p { font-size: .85rem; color: #888; line-height: 1.6; }
+    .menu-tag {
+      display: inline-block; margin-top: 12px;
+      font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 3px;
+    }
+    .tag-rosso { background: rgba(200,32,42,.15); color: #e06068; }
+    .tag-oro   { background: rgba(212,168,67,.12); color: var(--oro); }
+    .tag-verde { background: rgba(76,160,90,.12); color: #7ec88a; }
+
+    /* ── GALLERIA ── */
+    #galleria {
+      background: var(--fumo);
+      text-align: center;
+    }
+    .galleria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 260px 260px;
+      gap: 4px; margin-top: 56px;
+    }
+    .gal-item {
+      overflow: hidden; position: relative;
+      background: var(--grigio);
+    }
+    .gal-item:first-child { grid-column: 1 / 2; grid-row: 1 / 3; }
+    .gal-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s ease;
+      display: block;
+    }
+    .gal-item:hover img { transform: scale(1.06); }
+    .gal-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.6), transparent);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .gal-item:hover .gal-overlay { opacity: 1; }
+    .gal-overlay span { color: #fff; font-size: .8rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ── HALAL BANNER ── */
+    #halal {
+      background: var(--rosso);
+      padding: 64px 48px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; flex-wrap: wrap; text-align: center;
+    }
+    .halal-icon { font-size: 3.5rem; }
+    .halal-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 900;
+    }
+    .halal-text p { margin-top: 8px; font-size: .95rem; opacity: .85; max-width: 440px; }
+
+    /* ── RECENSIONI ── */
+    #recensioni { background: var(--nero); }
+    .rec-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px; margin-top: 56px;
+    }
+    .rec-card {
+      background: var(--fumo); border: 1px solid #2a2a2a;
+      border-radius: 8px; padding: 30px;
+      transition: border-color .25s;
+    }
+    .rec-card:hover { border-color: var(--oro); }
+    .stars { color: var(--oro); font-size: 1.1rem; margin-bottom: 14px; }
+    .rec-card blockquote {
+      font-size: .92rem; line-height: 1.7; color: #bbb;
+      font-style: italic; margin-bottom: 18px;
+    }
+    .rec-autore { font-size: .78rem; color: #666; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ── CONTATTI ── */
+    #contatti {
+      background: var(--fumo);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .info-block { margin-bottom: 32px; }
+    .info-block h4 {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--oro); margin-bottom: 10px;
+    }
+    .info-block p, .info-block a {
+      font-size: 1.0rem; color: #aaa; text-decoration: none;
+      line-height: 1.6;
+      transition: color .2s;
+    }
+    .info-block a:hover { color: var(--oro); }
+    .orari-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+    .orari-table td { padding: 5px 0; font-size: .9rem; color: #999; }
+    .orari-table td:first-child { color: #eee; font-weight: 500; width: 140px; }
+    .map-placeholder {
+      background: var(--grigio); border-radius: 8px;
+      height: 340px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px; color: #555;
+      border: 1px solid #333; overflow: hidden;
+    }
+    .map-placeholder iframe {
+      width: 100%; height: 100%; border: none; border-radius: 8px;
+      filter: grayscale(1) invert(1) contrast(0.85);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 20px; border-top: 1px solid #1e1e1e;
+    }
+    footer .logo { font-size: 1.2rem; }
+    footer p { font-size: .78rem; color: #555; }
+    .social-links { display: flex; gap: 16px; }
+    .social-links a {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid #333; display: flex; align-items: center; justify-content: center;
+      color: #666; text-decoration: none; font-size: 1rem;
+      transition: all .2s;
+    }
+    .social-links a:hover { border-color: var(--oro); color: var(--oro); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      nav ul { display: none; }
+      section { padding: 72px 20px; }
+      #chi-siamo { grid-template-columns: 1fr; gap: 40px; }
+      .chi-img img { height: 280px; }
+      .galleria-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gal-item:first-child { grid-column: 1 / -1; grid-row: auto; }
+      #contatti { grid-template-columns: 1fr; gap: 48px; }
+      #halal { padding: 48px 20px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+<meta property="og:title" content="HELA – Pizza & Kebab Milano" data-id="th-modified" ><meta name="description" content="hela-pizza-kebab" data-id="th-modified" ><meta property="og:description" content="hela-pizza-kebab" data-id="th-modified" ><meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified" ><meta property="og:image:width" content="1501" data-id="th-modified" ><meta property="og:image:height" content="1501" data-id="th-modified" ><meta property="og:image:type" content="image/png" data-id="th-modified" ><meta property="og:url" content="https://tomato-isobel-93.tiiny.site/" data-id="th-modified" ><meta property="og:type" content="website" data-id="th-modified" ><script defer data-domain="tomato-isobel-93.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script></head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">HE<span>LA</span></div>
+  <ul>
+    <li><a href="#chi-siamo">Chi Siamo</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#galleria">Galleria</a></li>
+    <li><a href="#recensioni">Recensioni</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="food-bg" id="foodBg"></div>
+  <span class="hero-badge">🌙 Halal Certificato · Milano</span>
+  <h1>Pizza, Kebab<br>&amp; <em>Sapori</em> Autentici</h1>
+  <p class="hero-sub">Via Padova, 181 &nbsp;·&nbsp; Via Carlo Imbonati, 21 &nbsp;·&nbsp; Milano</p>
+  <div class="hero-cta">
+    <a href="#menu" class="btn btn-primary">Scopri il Menu</a>
+    <a href="#contatti" class="btn btn-outline">Vieni a Trovarci</a>
+  </div>
+  <div class="scroll-hint">Scorri</div>
+</section>
+
+<!-- CHI SIAMO -->
+<section id="chi-siamo">
+  <div class="chi-img">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80" alt="Interno ristorante Hela">
+  </div>
+  <div class="chi-testo">
+    <span class="section-label">La nostra storia</span>
+    <h2>Tradizione &amp; <em>Passione</em> in ogni morso</h2>
+    <p>Da HELA portiamo a Milano i sapori autentici della cucina mediorientale, abbinandoli alla tradizione della pizza italiana. Ogni piatto è preparato con ingredienti freschi, selezionati ogni giorno con cura.</p>
+    <p>Il nostro kebab è affettato al momento dallo spiedo, la carne è 100% halal e le nostre pizze sono impastare artigianalmente. Un'esperienza autentica, a prezzi accessibili, nel cuore di Milano.</p>
+    <div class="stats">
+      <div class="stat">
+        <strong>3.7★</strong>
+        <span>Valutazione media</span>
+      </div>
+      <div class="stat">
+        <strong>350+</strong>
+        <span>Recensioni</span>
+      </div>
+      <div class="stat">
+        <strong>Halal</strong>
+        <span>100% Certificato</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-intro">
+    <span class="section-label">Cosa Mangiamo</span>
+    <h2>Il Nostro <em>Menu</em></h2>
+    <p>Dalla classica piadina al kebab croccante, passando per pizze fragranti e falafel dorati. C'è qualcosa per tutti.</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="filterMenu('tutti')">Tutti</button>
+    <button class="tab-btn" onclick="filterMenu('kebab')">Kebab</button>
+    <button class="tab-btn" onclick="filterMenu('pizza')">Pizza</button>
+    <button class="tab-btn" onclick="filterMenu('falafel')">Falafel & Veg</button>
+    <button class="tab-btn" onclick="filterMenu('pollo')">Pollo</button>
+  </div>
+
+  <div class="menu-grid">
+    <!-- KEBAB -->
+    <div class="menu-card visible" data-cat="kebab">
+      <div class="menu-card-top">
+        <h3>Kebab Classico</h3>
+        <span class="menu-price">€2.50</span>
+      </div>
+      <p>Carne di doner in piadina con insalata, pomodoro, cipolla e salsa a scelta.</p>
+      <span class="menu-tag tag-rosso">Bestseller</span>
+    </div>
+    <div class="menu-card visible" data-cat="kebab">
+      <div class="menu-card-top">
+        <h3>Kebab Atomico</h3>
+        <span class="menu-price">€4.50</span>
+      </div>
+      <p>Doppia porzione di carne con salsa piccante, jalapeño e cipolla croccante.</p>
+      <span class="menu-tag tag-rosso">Piccante 🌶</span>
+    </div>
+    <div class="menu-card visible" data-cat="kebab">
+      <div class="menu-card-top">
+        <h3>Piadina Kebab</h3>
+        <span class="menu-price">€3.50</span>
+      </div>
+      <p>Piadina calda con carne di doner, verdure fresche e salsa yogurt.</p>
+      <span class="menu-tag tag-oro">Consigliato</span>
+    </div>
+    <!-- PIZZA -->
+    <div class="menu-card visible" data-cat="pizza">
+      <div class="menu-card-top">
+        <h3>Pizza Margherita</h3>
+        <span class="menu-price">€2.50</span>
+      </div>
+      <p>Base di pomodoro, fior di latte, basilico fresco. Semplice e genuina.</p>
+      <span class="menu-tag tag-oro">Classica</span>
+    </div>
+    <div class="menu-card visible" data-cat="pizza">
+      <div class="menu-card-top">
+        <h3>Pizza Kebab</h3>
+        <span class="menu-price">€5.00</span>
+      </div>
+      <p>Mozzarella, carne di doner, verdure grigliate e salsa dello chef.</p>
+      <span class="menu-tag tag-rosso">Speciale</span>
+    </div>
+    <div class="menu-card visible" data-cat="pizza">
+      <div class="menu-card-top">
+        <h3>Pizza Pollo</h3>
+        <span class="menu-price">€5.50</span>
+      </div>
+      <p>Pollo marinato, mozzarella, peperoni e cipolla caramellata.</p>
+      <span class="menu-tag tag-oro">Novità</span>
+    </div>
+    <!-- FALAFEL -->
+    <div class="menu-card visible" data-cat="falafel">
+      <div class="menu-card-top">
+        <h3>Piadina Falafel</h3>
+        <span class="menu-price">€3.50</span>
+      </div>
+      <p>Falafel di ceci croccanti, hummus, insalata fresca e tahini.</p>
+      <span class="menu-tag tag-verde">Vegetariano</span>
+    </div>
+    <div class="menu-card visible" data-cat="falafel">
+      <div class="menu-card-top">
+        <h3>Piatto Falafel</h3>
+        <span class="menu-price">€6.00</span>
+      </div>
+      <p>6 pezzi di falafel con insalata, pane pita, hummus e tzatziki.</p>
+      <span class="menu-tag tag-verde">Vegan</span>
+    </div>
+    <!-- POLLO -->
+    <div class="menu-card visible" data-cat="pollo">
+      <div class="menu-card-top">
+        <h3>Pollo Fritto</h3>
+        <span class="menu-price">€4.00</span>
+      </div>
+      <p>Bocconcini di pollo croccanti con panatura speziata, serviti con salsa.</p>
+      <span class="menu-tag tag-rosso">Croccante</span>
+    </div>
+    <div class="menu-card visible" data-cat="pollo">
+      <div class="menu-card-top">
+        <h3>Menu Combo</h3>
+        <span class="menu-price">€5.00</span>
+      </div>
+      <p>Panino kebab o piadina + patatine fritte + bibita a scelta.</p>
+      <span class="menu-tag tag-oro">Offerta</span>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERIA -->
+<section id="galleria">
+  <span class="section-label">Galleria</span>
+  <h2>I Nostri <em>Piatti</em></h2>
+  <div class="galleria-grid">
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=700&q=80" alt="Kebab">
+      <div class="gal-overlay"><span>Kebab Doner</span></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Pizza">
+      <div class="gal-overlay"><span>Pizza Artigianale</span></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1614947916730-b7aea9bc0b14?w=600&q=80" alt="Falafel">
+      <div class="gal-overlay"><span>Falafel Dorati</span></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&q=80" alt="Pizza Margherita">
+      <div class="gal-overlay"><span>Margherita</span></div>
+    </div>
+    <div class="gal-item">
+      <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&q=80" alt="Pollo fritto">
+      <div class="gal-overlay"><span>Pollo Croccante</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HALAL BANNER -->
+<div id="halal">
+  <div class="halal-icon">🕌</div>
+  <div class="halal-text">
+    <h3>100% Halal Certificato</h3>
+    <p>Tutta la nostra carne è rigorosamente halal, fresca e di qualità certificata. Serviamo la comunità milanese con rispetto e trasparenza da anni.</p>
+  </div>
+  <div class="halal-icon">🥩</div>
+</div>
+
+<!-- RECENSIONI -->
+<section id="recensioni">
+  <span class="section-label">Cosa Dicono di Noi</span>
+  <h2><em>Recensioni</em> dei Clienti</h2>
+  <div class="rec-grid">
+    <div class="rec-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Il miglior kebab della zona! La carne è ottima, i panini e le piadine perfetti, i prezzi super accessibili. Ci torno sempre."</blockquote>
+      <span class="rec-autore">Marco R. · Google</span>
+    </div>
+    <div class="rec-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Posto fantastico! Quando non ho tempo e sono a corto di soldi, vengo qui e prendo un doner a 2,50€. È buonissimo per quel prezzo!!"</blockquote>
+      <span class="rec-autore">Sofia L. · Wanderlog</span>
+    </div>
+    <div class="rec-card">
+      <div class="stars">★★★★☆</div>
+      <blockquote>"Kebab locale ottimo e personale super amichevole. Se sei in zona, devi assolutamente provarlo. Porzioni generose a prezzi onesti."</blockquote>
+      <span class="rec-autore">Ahmed K. · Google</span>
+    </div>
+    <div class="rec-card">
+      <div class="stars">★★★★☆</div>
+      <blockquote>"Il personale, nonostante qualche barriera linguistica, è gentile e disponibile. Il cibo è eccellente e i prezzi molto ragionevoli."</blockquote>
+      <span class="rec-autore">Giulia M. · Tripadvisor</span>
+    </div>
+    <div class="rec-card">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Piadina kebab falafel davvero ottima! Il proprietario è genuino e molto accogliente. Un posto che si sente autentico."</blockquote>
+      <span class="rec-autore">Luca B. · TuttaMilano</span>
+    </div>
+    <div class="rec-card">
+      <div class="stars">★★★★☆</div>
+      <blockquote>"Ambiente piacevole, musica di sottofondo e cibo delizioso. Ottima scelta halal in una zona multiculturale e vivace di Milano."</blockquote>
+      <span class="rec-autore">Fatima S. · Restaurant Guru</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section id="contatti">
+  <div class="contatti-info">
+    <span class="section-label">Dove Siamo</span>
+    <h2>Vieni a <em>Trovarci</em></h2>
+
+    <div class="info-block">
+      <h4>📍 Indirizzi</h4>
+      <p>Via Padova, 181 – 20127 Milano<br>Via Carlo Imbonati, 21 – 20127 Milano</p>
+    </div>
+    <div class="info-block">
+      <h4>📞 Telefono</h4>
+      <a href="tel:+393293472769">+39 329 347 2769</a>
+    </div>
+    <div class="info-block">
+      <h4>🕐 Orari di Apertura</h4>
+      <table class="orari-table">
+        <tr><td>Lunedì – Venerdì</td><td>11:00 – 23:30</td></tr>
+        <tr><td>Sabato</td><td>11:00 – 00:30</td></tr>
+        <tr><td>Domenica</td><td>12:00 – 23:00</td></tr>
+      </table>
+    </div>
+    <div class="info-block">
+      <h4>🚇 Come Arrivare</h4>
+      <p>MM1 Loreto · MM2 Crescenzago<br>Tram 33 – Fermata Padova/Crescenzago</p>
+    </div>
+    <a href="tel:+393293472769" class="btn btn-primary" style="margin-top:8px">📞 Chiama Ora</a>
+  </div>
+
+  <div class="map-placeholder">
+    <iframe       src="https://www.openstreetmap.org/export/embed.html?bbox=9.227,45.494,9.240,45.503&layer=mapnik&marker=45.4985,9.2334"
+      allowfullscreen loading="lazy"
+      title="Mappa Hela Pizza Kebab Milano">
+    </iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">HE<span>LA</span> <span style="color:#555;font-size:.75rem;font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em;">Pizza & Kebab</span></div>
+  <p>© 2024 Hela Pizza Kebab · Via Padova 181, Milano · P.IVA 00000000000</p>
+  <div class="social-links">
+    <a href="#" title="Facebook">f</a>
+    <a href="#" title="Instagram">☆</a>
+    <a href="#" title="WhatsApp">✉</a>
+  </div>
+</footer>
+
+<script>
+  // Food emoji rain
+  const emojis = ['🍕','🥙','🧆','🌯','🍗','🥗','🌶'];
+  const container = document.getElementById('foodBg');
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('span');
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (12 + Math.random() * 16) + 's';
+    el.style.animationDelay = (Math.random() * 14) + 's';
+    el.style.fontSize = (1.8 + Math.random() * 2.2) + 'rem';
+    container.appendChild(el);
+  }
+
+  // Menu filter
+  function filterMenu(cat) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.menu-card').forEach(card => {
+      const show = cat === 'tutti' || card.dataset.cat === cat;
+      card.classList.toggle('visible', show);
+    });
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.menu-card, .rec-card, .stat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
