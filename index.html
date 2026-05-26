@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" >
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HELA – Pizza & Kebab Milano</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -32,20 +32,22 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px;
-      background: linear-gradient(to bottom, rgba(0,0,0,.9), transparent);
-      backdrop-filter: blur(8px);
+      padding: 14px 48px;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .logo {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 12px;
       text-decoration: none;
     }
     .logo-img {
-      height: 70px;
-      width: 150px;
+      height: 56px;
+      width: auto;
       display: block;
+      object-fit: contain;
     }
     .logo-text {
       font-family: 'Playfair Display', serif;
@@ -55,20 +57,66 @@
       color: var(--oro);
     }
     .logo-text span { color: var(--rosso); }
-    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul { list-style: none; display: flex; gap: 28px; align-items: center; }
     nav ul a {
       color: var(--testo); text-decoration: none;
-      font-size: .85rem; font-weight: 500; letter-spacing: .12em;
+      font-size: .82rem; font-weight: 500; letter-spacing: .1em;
       text-transform: uppercase;
       transition: color .25s;
     }
     nav ul a:hover { color: var(--oro); }
 
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--testo);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.97);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--testo);
+      text-decoration: none;
+      font-size: 1.6rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: .04em;
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--oro); }
+
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .logo-img { height: 40px; }
-      .logo-text { font-size: 1.2rem; }
-      nav ul { display: none; }
+      nav { padding: 12px 20px; }
+      .logo-img { height: 44px; }
+      .logo-text { font-size: 1.3rem; }
+      nav > ul { display: none; }
+      .hamburger { display: flex; }
     }
 
     /* ── HERO ── */
@@ -139,6 +187,55 @@
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ── ORDER BUTTONS ── */
+    .order-btns {
+      margin-top: 60px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp .8s .6s ease both;
+    }
+    .order-label {
+      display: block;
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 14px;
+      text-align: center;
+      animation: fadeUp .8s .55s ease both;
+    }
+    .btn-delivery {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      transition: all .25s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-deliveroo {
+      background: #00CCBC;
+      color: #fff;
+    }
+    .btn-deliveroo:hover { background: #00b0a0; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,204,188,.3); }
+    .btn-glovo {
+      background: #FFC244;
+      color: #111;
+    }
+    .btn-glovo:hover { background: #e6ae3a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,194,68,.3); }
+    .btn-delivery img {
+      height: 20px;
+      width: auto;
+    }
+
     .btn {
       display: inline-block; padding: 14px 34px;
       border-radius: 4px; text-decoration: none;
@@ -262,6 +359,83 @@
     .tag-oro   { background: rgba(212,168,67,.12); color: var(--oro); }
     .tag-verde { background: rgba(76,160,90,.12); color: #7ec88a; }
 
+    /* ── ORDER SECTION ── */
+    #ordina {
+      background: var(--nero);
+      padding: 80px 48px;
+      text-align: center;
+      border-top: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .ordina-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    #ordina h2 { margin-bottom: 12px; }
+    #ordina p { color: #888; margin-bottom: 44px; font-size: 1rem; }
+    .delivery-cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .delivery-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 32px 40px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: all .3s;
+      border: 1px solid transparent;
+      min-width: 200px;
+    }
+    .delivery-card-deliveroo {
+      background: rgba(0,204,188,.1);
+      border-color: rgba(0,204,188,.25);
+    }
+    .delivery-card-deliveroo:hover {
+      background: rgba(0,204,188,.18);
+      border-color: #00CCBC;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,204,188,.2);
+    }
+    .delivery-card-glovo {
+      background: rgba(255,194,68,.08);
+      border-color: rgba(255,194,68,.2);
+    }
+    .delivery-card-glovo:hover {
+      background: rgba(255,194,68,.15);
+      border-color: #FFC244;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(255,194,68,.15);
+    }
+    .delivery-logo {
+      font-size: 2.6rem;
+    }
+    .delivery-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--testo);
+    }
+    .delivery-desc {
+      font-size: .8rem;
+      color: #888;
+      letter-spacing: .06em;
+    }
+    .delivery-cta {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 40px;
+    }
+    .delivery-card-deliveroo .delivery-cta { background: #00CCBC; color: #fff; }
+    .delivery-card-glovo .delivery-cta { background: #FFC244; color: #111; }
+
     /* ── GALLERIA ── */
     #galleria {
       background: var(--fumo);
@@ -326,7 +500,7 @@
     }
     .rec-autore { font-size: .78rem; color: #666; letter-spacing: .08em; text-transform: uppercase; }
 
-    /* ── CONTATTI CON 7 SEDI E MAPPE ── */
+    /* ── CONTATTI ── */
     #contatti {
       background: var(--fumo);
       display: flex;
@@ -426,10 +600,14 @@
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
       }
-      .gal-item:first-child { grid-column: 1 / -1; grid-row: auto; }
+      .gal-item { height: 180px; }
+      .gal-item:first-child { grid-column: 1 / -1; grid-row: auto; height: 220px; }
       .contatti-generali { grid-template-columns: 1fr; gap: 30px; }
       .sedi-container { grid-template-columns: 1fr; }
       #halal { padding: 48px 20px; }
+      #ordina { padding: 60px 20px; }
+      .delivery-cards { gap: 16px; }
+      .delivery-card { padding: 24px 28px; min-width: 160px; }
     }
 
     /* ── FOOTER ── */
@@ -446,12 +624,13 @@
     .footer-logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       text-decoration: none;
     }
     .footer-logo-img {
       height: 40px;
       width: auto;
+      object-fit: contain;
     }
     .footer-logo-text {
       font-family: 'Playfair Display', serif;
@@ -471,26 +650,40 @@
     .social-links a:hover { border-color: var(--oro); color: var(--oro); }
 
     @media (max-width: 768px) {
-      footer { flex-direction: column; align-items: flex-start; }
+      footer { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV avec LOGO IMAGE -->
+<!-- NAV -->
 <nav>
   <a href="#hero" class="logo">
-    <img src="logo.png" alt="HELA Pizza & Kebab" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-    <span class="logo-text" style="display: none;">HE<span>LA</span></span>
+    <img src="logo.png" alt="HELA Pizza & Kebab" class="logo-img" id="logoImg">
+    <span class="logo-text" id="logoText" style="display:none;">HE<span>LA</span></span>
   </a>
   <ul>
     <li><a href="#chi-siamo">Chi Siamo</a></li>
     <li><a href="#menu">Menu</a></li>
+    <li><a href="#ordina">Ordina</a></li>
     <li><a href="#galleria">Galleria</a></li>
     <li><a href="#recensioni">Recensioni</a></li>
     <li><a href="#contatti">Contatti</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#chi-siamo" onclick="closeMobile()">Chi Siamo</a>
+  <a href="#menu" onclick="closeMobile()">Menu</a>
+  <a href="#ordina" onclick="closeMobile()">Ordina Online</a>
+  <a href="#galleria" onclick="closeMobile()">Galleria</a>
+  <a href="#recensioni" onclick="closeMobile()">Recensioni</a>
+  <a href="#contatti" onclick="closeMobile()">Contatti</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -501,6 +694,15 @@
   <div class="hero-cta">
     <a href="#menu" class="btn btn-primary">Scopri il Menu</a>
     <a href="#contatti" class="btn btn-outline">Vieni a Trovarci</a>
+  </div>
+  <span class="order-label" style="margin-top:48px;">Ordina adesso</span>
+  <div class="order-btns">
+    <a href="https://deliveroo.it/it/menu/milano/pratocentenaro-casoretto/hela-chicken-via-padova-80" target="_blank" class="btn-delivery btn-deliveroo">
+      🛵 Deliveroo
+    </a>
+    <a href="https://glovoapp.com/it/it/milano/stores/hela-chicken-pizza-kebab-mil" target="_blank" class="btn-delivery btn-glovo">
+      🟡 Glovo
+    </a>
   </div>
   <div class="scroll-hint">Scorri</div>
 </section>
@@ -531,11 +733,11 @@
     <p>Dalla classica piadina al kebab croccante, passando per pizze fragranti e falafel dorati. C'è qualcosa per tutti.</p>
   </div>
   <div class="menu-tabs">
-    <button class="tab-btn active" onclick="filterMenu('tutti')">Tutti</button>
-    <button class="tab-btn" onclick="filterMenu('kebab')">Kebab</button>
-    <button class="tab-btn" onclick="filterMenu('pizza')">Pizza</button>
-    <button class="tab-btn" onclick="filterMenu('falafel')">Falafel & Veg</button>
-    <button class="tab-btn" onclick="filterMenu('pollo')">Pollo</button>
+    <button class="tab-btn active" onclick="filterMenu('tutti', event)">Tutti</button>
+    <button class="tab-btn" onclick="filterMenu('kebab', event)">Kebab</button>
+    <button class="tab-btn" onclick="filterMenu('pizza', event)">Pizza</button>
+    <button class="tab-btn" onclick="filterMenu('falafel', event)">Falafel & Veg</button>
+    <button class="tab-btn" onclick="filterMenu('pollo', event)">Pollo</button>
   </div>
   <div class="menu-grid">
     <div class="menu-card visible" data-cat="kebab"><div class="menu-card-top"><h3>Kebab Classico</h3><span class="menu-price">€2.50</span></div><p>Carne di doner in piadina con insalata, pomodoro, cipolla e salsa a scelta.</p><span class="menu-tag tag-rosso">Bestseller</span></div>
@@ -548,6 +750,29 @@
     <div class="menu-card visible" data-cat="falafel"><div class="menu-card-top"><h3>Piatto Falafel</h3><span class="menu-price">€6.00</span></div><p>6 pezzi di falafel con insalata, pane pita, hummus e tzatziki.</p><span class="menu-tag tag-verde">Vegan</span></div>
     <div class="menu-card visible" data-cat="pollo"><div class="menu-card-top"><h3>Pollo Fritto</h3><span class="menu-price">€4.00</span></div><p>Bocconcini di pollo croccanti con panatura speziata, serviti con salsa.</p><span class="menu-tag tag-rosso">Croccante</span></div>
     <div class="menu-card visible" data-cat="pollo"><div class="menu-card-top"><h3>Menu Combo</h3><span class="menu-price">€5.00</span></div><p>Panino kebab o piadina + patatine fritte + bibita a scelta.</p><span class="menu-tag tag-oro">Offerta</span></div>
+  </div>
+</section>
+
+<!-- ORDINA ONLINE -->
+<section id="ordina">
+  <div class="ordina-inner">
+    <span class="section-label">Delivery</span>
+    <h2>Ordina <em>Online</em></h2>
+    <p>Hai voglia di HELA ma sei a casa? Ordina comodamente tramite le nostre piattaforme di consegna preferite.</p>
+    <div class="delivery-cards">
+      <a href="https://deliveroo.it/it/menu/milano/pratocentenaro-casoretto/hela-chicken-via-padova-80" target="_blank" class="delivery-card delivery-card-deliveroo">
+        <div class="delivery-logo">🛵</div>
+        <div class="delivery-name">Deliveroo</div>
+        <div class="delivery-desc">Consegna rapida</div>
+        <span class="delivery-cta">Ordina ora</span>
+      </a>
+      <a href="https://glovoapp.com/it/it/milano/stores/hela-chicken-pizza-kebab-mil" target="_blank" class="delivery-card delivery-card-glovo">
+        <div class="delivery-logo">🟡</div>
+        <div class="delivery-name">Glovo</div>
+        <div class="delivery-desc">Pronto in pochi minuti</div>
+        <span class="delivery-cta">Ordina ora</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -589,26 +814,48 @@
     <span class="section-label">Le nostre sedi</span>
     <h2>7 punti vendita <em>a Milano</em></h2>
     <div class="sedi-container">
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 80</h3><p><i class="fas fa-location-dot"></i> Via Padova, 80 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.222,45.492,9.234,45.500&layer=mapnik&marker=45.496,9.228"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+80+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 150</h3><p><i class="fas fa-location-dot"></i> Via Padova, 150 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.228,45.496,9.240,45.504&layer=mapnik&marker=45.500,9.234"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+150+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 181</h3><p><i class="fas fa-location-dot"></i> Via Padova, 181 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.231,45.498,9.243,45.506&layer=mapnik&marker=45.502,9.237"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+181+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 277</h3><p><i class="fas fa-location-dot"></i> Via Padova, 277 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.238,45.502,9.250,45.510&layer=mapnik&marker=45.506,9.244"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+277+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Vitruvio 43</h3><p><i class="fas fa-location-dot"></i> Via Vitruvio, 43 – 20124 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.205,45.480,9.215,45.488&layer=mapnik&marker=45.484,9.210"></iframe></div><a href="https://maps.google.com/?q=Via+Vitruvio+43+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Imbonati 21</h3><p><i class="fas fa-location-dot"></i> Via Carlo Imbonati, 21 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.230,45.500,9.242,45.508&layer=mapnik&marker=45.504,9.236"></iframe></div><a href="https://maps.google.com/?q=Via+Carlo+Imbonati+21+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
-      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Giambellino 80</h3><p><i class="fas fa-location-dot"></i> Via Giambellino, 80 – 20147 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.152,45.450,9.164,45.458&layer=mapnik&marker=45.454,9.158"></iframe></div><a href="https://maps.google.com/?q=Via+Giambellino+80+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 80</h3><p><i class="fas fa-location-dot"></i> Via Padova, 80 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.222,45.492,9.234,45.500&layer=mapnik&marker=45.496,9.228" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+80+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 150</h3><p><i class="fas fa-location-dot"></i> Via Padova, 150 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.228,45.496,9.240,45.504&layer=mapnik&marker=45.500,9.234" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+150+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 181</h3><p><i class="fas fa-location-dot"></i> Via Padova, 181 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.231,45.498,9.243,45.506&layer=mapnik&marker=45.502,9.237" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+181+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Padova 277</h3><p><i class="fas fa-location-dot"></i> Via Padova, 277 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.238,45.502,9.250,45.510&layer=mapnik&marker=45.506,9.244" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Padova+277+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Vitruvio 43</h3><p><i class="fas fa-location-dot"></i> Via Vitruvio, 43 – 20124 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.205,45.480,9.215,45.488&layer=mapnik&marker=45.484,9.210" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Vitruvio+43+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Imbonati 21</h3><p><i class="fas fa-location-dot"></i> Via Carlo Imbonati, 21 – 20127 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.230,45.500,9.242,45.508&layer=mapnik&marker=45.504,9.236" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Carlo+Imbonati+21+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
+      <div class="scheda-sede"><h3><i class="fas fa-map-marker-alt"></i> HELA Giambellino 80</h3><p><i class="fas fa-location-dot"></i> Via Giambellino, 80 – 20147 Milano</p><div class="map-mini"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.152,45.450,9.164,45.458&layer=mapnik&marker=45.454,9.158" loading="lazy"></iframe></div><a href="https://maps.google.com/?q=Via+Giambellino+80+Milano" target="_blank" class="btn-sede">Apri mappa →</a></div>
     </div>
   </div>
 
   <div class="contatti-generali">
     <div>
-      <div class="info-block"><h4>📞 Telefono unico</h4><a href="tel:+393293472769">+39 329 347 2769</a></div>
-      <div class="info-block"><h4>🕐 Orari (tutte le sedi)</h4>
-        <table class="orari-table"><tr><td>Lunedì – Venerdì</td><td>11:00 – 23:30</td></tr><tr><td>Sabato</td><td>11:00 – 00:30</td></tr><tr><td>Domenica</td><td>12:00 – 23:00</td></tr></table>
+      <div class="info-block">
+        <h4>📞 Telefono</h4>
+        <a href="tel:+393293472769">+39 329 347 2769</a>
+      </div>
+      <div class="info-block">
+        <h4>🕐 Orari (tutte le sedi)</h4>
+        <table class="orari-table">
+          <tr><td>Lunedì</td><td>11:15 – 00:00</td></tr>
+          <tr><td>Martedì</td><td>11:15 – 00:00</td></tr>
+          <tr><td>Mercoledì</td><td>11:15 – 00:00</td></tr>
+          <tr><td>Giovedì</td><td>11:15 – 00:00</td></tr>
+          <tr><td>Venerdì</td><td>11:15 – 00:00</td></tr>
+          <tr><td>Sabato</td><td>11:15 – 00:00</td></tr>
+          <tr><td>Domenica</td><td>11:15 – 00:00</td></tr>
+        </table>
       </div>
     </div>
     <div>
-      <div class="info-block"><h4>🚇 Come raggiungerci</h4><p>MM1 Loreto · MM2 Crescenzago<br>Bus / Tram – tutte le sedi sono facilmente raggiungibili</p></div>
-      <div class="info-block"><h4>📧 Info & Delivery</h4><p>Consegne a domicilio tramite app<br>Ordinazioni whatsapp al numero sopra</p></div>
+      <div class="info-block">
+        <h4>🚇 Come raggiungerci</h4>
+        <p>MM1 Loreto · MM2 Crescenzago<br>Bus / Tram – tutte le sedi sono facilmente raggiungibili</p>
+      </div>
+      <div class="info-block">
+        <h4>📦 Ordina Online</h4>
+        <p style="margin-bottom:12px;">Consegne a domicilio tramite Deliveroo e Glovo.<br>Oppure ordina via WhatsApp al numero sopra.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="https://deliveroo.it/it/menu/milano/pratocentenaro-casoretto/hela-chicken-via-padova-80" target="_blank" class="btn btn-primary" style="padding:10px 20px; font-size:.8rem;">🛵 Deliveroo</a>
+          <a href="https://glovoapp.com/it/it/milano/stores/hela-chicken-pizza-kebab-mil" target="_blank" class="btn btn-outline" style="padding:10px 20px; font-size:.8rem;">🟡 Glovo</a>
+        </div>
+      </div>
       <a href="tel:+393293472769" class="btn btn-primary" style="margin-top:8px; display:inline-block;">📞 Chiama Ora</a>
     </div>
   </div>
@@ -617,8 +864,8 @@
 <!-- FOOTER -->
 <footer>
   <a href="#hero" class="footer-logo">
-    <img src="logo.png" alt="HELA" class="footer-logo-img" onerror="this.style.display='none'">
-    <span class="footer-logo-text">HE<span>LA</span></span>
+    <img src="logo.png" alt="HELA" class="footer-logo-img" id="footerLogoImg">
+    <span class="footer-logo-text" id="footerLogoText" style="display:none;">HE<span>LA</span></span>
   </a>
   <p>© 2025 HELA Pizza Kebab · 7 sedi a Milano · P.IVA 00000000000</p>
   <div class="social-links">
@@ -645,12 +892,49 @@
     }
   }
 
+  // Logo fallback
+  function handleLogoError(imgId, textId) {
+    const img = document.getElementById(imgId);
+    const text = document.getElementById(textId);
+    if(img && text) {
+      img.style.display = 'none';
+      text.style.display = 'block';
+    }
+  }
+  const logoImg = document.getElementById('logoImg');
+  if(logoImg) {
+    logoImg.onerror = () => handleLogoError('logoImg', 'logoText');
+    // Forza controllo se già fallita
+    if(!logoImg.complete || logoImg.naturalWidth === 0) {
+      handleLogoError('logoImg', 'logoText');
+    }
+  }
+  const footerLogo = document.getElementById('footerLogoImg');
+  if(footerLogo) {
+    footerLogo.onerror = () => handleLogoError('footerLogoImg', 'footerLogoText');
+    if(!footerLogo.complete || footerLogo.naturalWidth === 0) {
+      handleLogoError('footerLogoImg', 'footerLogoText');
+    }
+  }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   // Menu filter
-  function filterMenu(cat) {
-    const btns = document.querySelectorAll('.tab-btn');
-    const activeBtn = event?.target;
-    btns.forEach(b => b.classList.remove('active'));
-    if(activeBtn) activeBtn.classList.add('active');
+  function filterMenu(cat, e) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if(e && e.target) e.target.classList.add('active');
     document.querySelectorAll('.menu-card').forEach(card => {
       const show = cat === 'tutti' || card.dataset.cat === cat;
       card.classList.toggle('visible', show);
@@ -666,22 +950,12 @@
       }
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.menu-card, .rec-card, .stat, .scheda-sede').forEach(el => {
+  document.querySelectorAll('.menu-card, .rec-card, .stat, .scheda-sede, .delivery-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
     el.style.transition = 'opacity .5s ease, transform .5s ease';
     observer.observe(el);
   });
-
-  // Logo fallback: si l'image ne charge pas, on affiche le texte
-  const logoImg = document.querySelector('.logo-img');
-  if(logoImg) {
-    logoImg.addEventListener('error', function() {
-      this.style.display = 'none';
-      const textSpan = this.parentElement.querySelector('.logo-text');
-      if(textSpan) textSpan.style.display = 'block';
-    });
-  }
 </script>
 </body>
 </html>
